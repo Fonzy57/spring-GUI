@@ -1,4 +1,32 @@
-<h1 (click)="onClick()">{{ titre }}</h1>
-<p>
-  Mon compteur : <span>{{ compteur }}</span>
-</p>
+<h1>Voici mes {{ produits.length }} motos :</h1>
+
+<div class="produit-container">
+  @for (produit of produits; track $index) {
+  <div class="produit-card">
+    <div class="img-container">
+      <img
+        src="https://picsum.photos/id/{{ produit.id + 425 }}/600/400"
+        alt="image aléatoire"
+        srcset=""
+      />
+    </div>
+    <div class="content-container">
+      <div class="first-row">
+        <div class="name-container">
+          <p class="title">{{ produit.nom }}</p>
+          <p class="code">{{ produit.code }}</p>
+        </div>
+        <p class="prix">{{ produit.prix }} €</p>
+      </div>
+      <div class="last-row">
+        <p class="description">{{ produit.description }}</p>
+        <button mat-raised-button (click)="onClickBuy(produit)">
+          Acheter maintenant !
+        </button>
+      </div>
+    </div>
+  </div>
+  } @empty {
+  <p>Il n'y a pas de produits.</p>
+  }
+</div>
