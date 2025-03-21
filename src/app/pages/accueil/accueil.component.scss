@@ -3,6 +3,11 @@ h1 {
   margin-top: 32px;
 }
 
+.add-button {
+  margin-top: 32px;
+  margin-left: 32px;
+}
+
 .produit-container {
   display: flex;
   align-items: center;
@@ -53,6 +58,14 @@ h1 {
 
     .description {
       font-style: italic;
+    }
+
+    .button-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 32px;
     }
   }
 }

@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.scss'],
-  imports: [MatButtonModule, MatSnackBarModule],
+  imports: [MatButtonModule, MatSnackBarModule, MatIconModule, RouterLink],
 })
 export class AccueilComponent {
   http = inject(HttpClient);

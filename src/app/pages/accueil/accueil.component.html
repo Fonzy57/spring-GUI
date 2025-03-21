@@ -1,3 +1,12 @@
+<button mat-raised-button routerLink="/edit-produit" class="add-button">
+  Ajouter produit
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Example home icon"
+    fontIcon="add"
+  ></mat-icon>
+</button>
+
 <h1>Voici mes {{ produits.length }} motos :</h1>
 
 <div class="produit-container">
@@ -23,6 +32,24 @@
         <button mat-raised-button (click)="onClickBuy(produit)">
           Acheter maintenant !
         </button>
+      </div>
+      <div class="button-row">
+        <a [routerLink]="['/edit-produit', produit.id]">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="edit"
+          ></mat-icon>
+        </a>
+        <!-- TODO CHANGER LIEN -->
+        <a href="">
+          <mat-icon
+            class="text-danger"
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="delete"
+          ></mat-icon>
+        </a>
       </div>
     </div>
   </div>
