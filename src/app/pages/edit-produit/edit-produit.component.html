@@ -1,0 +1,46 @@
+<h1>Ajouter un produit</h1>
+
+<div class="form-container">
+  <h2>Changer les infos du produit</h2>
+  <form [formGroup]="formulaire" (ngSubmit)="onAddProduit()">
+    <mat-form-field class="item">
+      <mat-label>Nom</mat-label>
+      <input matInput placeholder="Marque + modèle" formControlName="nom" />
+      <mat-error>Le nom est requis</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="item">
+      <mat-label>Code</mat-label>
+      <input matInput placeholder="MT07-57" formControlName="code" />
+      <mat-error>Le code est requis</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="item">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Description du produit."
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="item">
+      <mat-label>Prix</mat-label>
+      <input
+        matInput
+        placeholder="7 799.99 €"
+        type="number"
+        formControlName="prix"
+      />
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" class="button-custom">
+      Ajouter produit
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="add"
+      ></mat-icon>
+    </button>
+  </form>
+</div>
