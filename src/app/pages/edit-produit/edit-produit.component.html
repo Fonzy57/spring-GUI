@@ -6,7 +6,13 @@
     <mat-form-field class="item">
       <mat-label>Nom</mat-label>
       <input matInput placeholder="Marque + modèle" formControlName="nom" />
+      @if (formulaire.get('nom')?.hasError("required")) {
       <mat-error>Le nom est requis</mat-error>
+      } @else if (formulaire.get('nom')?.hasError("minlength")) {
+      <mat-error>Le nom doit contenir au minimum 3 caractères</mat-error>
+      } @else if (formulaire.get('nom')?.hasError("maxlength")) {
+      <mat-error>Le nom doit contenir au maximum 21 caractères</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field class="item">
@@ -32,6 +38,30 @@
         type="number"
         formControlName="prix"
       />
+
+      @if (formulaire.get('prix')?.hasError("required")) {
+      <mat-error>Le prix est requis</mat-error>
+      } @else if (formulaire.get('prix')?.hasError("min")) {
+      <mat-error>Le prix doit être supérieur à 10 €</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Etat du produit :</mat-label>
+      <mat-select formControlName="etat">
+        @for (etat of etats; track $index) {
+        <mat-option [value]="etat">{{ etat.nom }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Etiquettes</mat-label>
+      <mat-select formControlName="etiquettes" multiple>
+        @for (etiquette of etiquettes; track etiquette) {
+        <mat-option [value]="etiquette">{{ etiquette.nom }}</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
 
     <button mat-raised-button type="submit" class="button-custom">
