@@ -4,16 +4,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.scss'],
-  imports: [MatButtonModule, MatSnackBarModule, MatIconModule, RouterLink],
+  imports: [
+    MatButtonModule,
+    MatSnackBarModule,
+    MatIconModule,
+    RouterLink,
+    CurrencyPipe,
+  ],
 })
 export class AccueilComponent {
   http = inject(HttpClient);
-  produits: any = [];
+  produits: Produit[] = [];
 
   private _snackBar = inject(MatSnackBar);
 
@@ -25,13 +32,13 @@ export class AccueilComponent {
 
   ngOnInit() {
     this.http
-      .get<any[]>('http://localhost:8080/produits')
+      .get<Produit[]>('http://localhost:8080/produits')
       .subscribe((listeProduits) => {
         this.produits = listeProduits;
       });
   }
 
-  onClickBuy = (produit: any) => {
+  onClickBuy = (produit: Produit) => {
     this.openSnackBar(`Je viens d'acheter une ${produit.nom}`, 'x');
   };
 }

@@ -24,6 +24,11 @@
         <div class="name-container">
           <p class="title">{{ produit.nom }}</p>
           <p class="code">{{ produit.code }}</p>
+          <div class="etiquettes-container">
+            @for (etiquette of produit.etiquettes; track $index) {
+            <span class="etiquette-tag">{{ etiquette.nom }}</span>
+            }
+          </div>
         </div>
         <p class="prix">{{ produit.prix }} €</p>
       </div>

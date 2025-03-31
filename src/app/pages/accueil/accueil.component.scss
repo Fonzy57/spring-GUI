@@ -97,5 +97,21 @@ h1 {
     .code {
       font-size: 12px;
     }
+
+    .etiquettes-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      .etiquette-tag {
+        font-size: 12px;
+        color: #005671;
+        background-color: #cceffa;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+    }
   }
 }
