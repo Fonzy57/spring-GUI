@@ -1,4 +1,4 @@
-<button mat-raised-button routerLink="/edit-produit" class="add-button">
+<button mat-raised-button routerLink="/ajouter-produit" class="add-button">
   Ajouter produit
   <mat-icon
     aria-hidden="false"
@@ -11,7 +11,7 @@
 
 <div class="produit-container">
   @for (produit of produits; track $index) {
-  <div class="produit-card">
+  <div class="produit-card" [class.promotion]="produit.etat.nom === 'Occasion'">
     <div class="img-container">
       <img
         src="https://picsum.photos/id/{{ produit.id + 425 }}/600/400"
@@ -26,7 +26,12 @@
           <p class="code">{{ produit.code }}</p>
           <div class="etiquettes-container">
             @for (etiquette of produit.etiquettes; track $index) {
-            <span class="etiquette-tag">{{ etiquette.nom }}</span>
+            <span
+              class="etiquette-tag"
+              [ngStyle]="{ backgroundColor: etiquette.couleur }"
+            >
+              {{ etiquette.nom }}
+            </span>
             }
           </div>
         </div>
