@@ -68,6 +68,11 @@ h1 {
       gap: 32px;
     }
   }
+
+  &.promotion {
+    background-color: rgb(255, 205, 112);
+    border: 1px solid rgb(216, 167, 51);
+  }
 }
 
 /* .produit-card:hover {
@@ -106,8 +111,8 @@ h1 {
 
       .etiquette-tag {
         font-size: 12px;
-        color: #005671;
-        background-color: #cceffa;
+        /* color: #005671;
+        background-color: #cceffa; */
         padding: 6px 10px;
         border-radius: 8px;
         font-weight: 500;
