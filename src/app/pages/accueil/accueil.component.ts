@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
@@ -16,6 +16,7 @@ import { CurrencyPipe } from '@angular/common';
     MatIconModule,
     RouterLink,
     CurrencyPipe,
+    NgStyle,
   ],
 })
 export class AccueilComponent {
