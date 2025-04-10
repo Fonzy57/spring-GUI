@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
@@ -15,7 +15,6 @@ import { CurrencyPipe, NgStyle } from '@angular/common';
     MatSnackBarModule,
     MatIconModule,
     RouterLink,
-    CurrencyPipe,
     NgStyle,
   ],
 })
@@ -32,11 +31,19 @@ export class AccueilComponent {
   }
 
   ngOnInit() {
-    this.http
-      .get<Produit[]>('http://localhost:8080/produits')
-      .subscribe((listeProduits) => {
-        this.produits = listeProduits;
-      });
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      this.http
+        .get<Produit[]>('http://localhost:8080/produits', {
+          headers: {
+            Authorization: 'Bearer ' + jwt,
+          },
+        })
+        .subscribe((listeProduits) => {
+          this.produits = listeProduits;
+        });
+    }
   }
 
   onClickBuy = (produit: Produit) => {

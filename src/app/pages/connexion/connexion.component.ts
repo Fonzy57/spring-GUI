@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-connexion',
@@ -17,9 +18,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './connexion.component.scss',
 })
 export class ConnexionComponent {
-  notification = inject(MatSnackBar);
   http = inject(HttpClient);
   formBuilder: FormBuilder = inject(FormBuilder);
+  notification: NotificationService = inject(NotificationService);
 
   formulaire = this.formBuilder.group({
     email: ['user@toto.fr', [Validators.required, Validators.email]],
@@ -34,13 +35,10 @@ export class ConnexionComponent {
           responseType: 'text',
         })
         .subscribe({
-          next: (result) => console.log(result), // ICI LE RESULT C'EST LE JWT
+          next: (result) => localStorage.setItem('jwt', result), // ICI LE RESULT C'EST LE JWT
           error: (erreur) => {
             if (erreur.status === 401) {
-              this.notification.open('Mauvais email ou mot de passe', '', {
-                duration: 5000,
-                verticalPosition: 'top',
-              });
+              this.notification.show('Mauvais email ou mot de passe', 'error');
             }
           },
         });

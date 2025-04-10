@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-edit-produit',
@@ -31,7 +32,7 @@ export class EditProduitComponent implements OnInit {
   etats: Etat[] = [];
   etiquettes: Etiquette[] = [];
   produitEdite: Produit | null = null;
-  notification = inject(MatSnackBar);
+  notification: NotificationService = inject(NotificationService);
 
   http = inject(HttpClient);
   activatedRoute = inject(ActivatedRoute);
@@ -87,15 +88,18 @@ export class EditProduitComponent implements OnInit {
             'http://localhost:8080/produit/' + this.produitEdite.id,
             this.formulaire.value
           )
-          .subscribe((result) => console.log(result));
-        this.notification.open('Le produit a bien été modifié', '', {
-          duration: 5000,
-        });
+          .subscribe((result) => {
+            console.log(result);
+            this.notification.show('Le produit a bien été modifié');
+          });
       } else {
         // sinon on fait un post
         this.http
           .post('http://localhost:8080/produit', this.formulaire.value)
-          .subscribe((result) => console.log(result));
+          .subscribe((result) => {
+            console.log(result);
+            this.notification.show('Le produit a bien été ajouté');
+          });
       }
     } else {
       console.log('FORMULAIRE NON VALIDE !');

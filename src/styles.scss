@@ -90,3 +90,24 @@ body {
   right: 25px;
   top: 60px;
 }
+
+/* NOTIFICATION SNACKBAR STYLE */
+.mat-mdc-snack-bar-container {
+  &.valid .mat-mdc-snackbar-surface {
+    background-color: greenyellow;
+  }
+
+  &.error .mat-mdc-snackbar-surface {
+    background-color: rgb(208, 0, 0);
+    color: white;
+  }
+
+  &.warning .mat-mdc-snackbar-surface {
+    background-color: #ff8242;
+  }
+
+  &.info .mat-mdc-snackbar-surface {
+    background-color: #4675c6;
+    color: white;
+  }
+}
