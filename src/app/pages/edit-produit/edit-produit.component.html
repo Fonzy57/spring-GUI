@@ -1,4 +1,4 @@
-<h1>Ajouter un produit</h1>
+<h1>{{ produitEdite ? "Éditer le produit" : "Ajouter un produit" }}</h1>
 
 <div class="form-container">
   <h2>Changer les infos du produit</h2>
@@ -46,18 +46,22 @@
       }
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="item">
       <mat-label>Etat du produit :</mat-label>
-      <mat-select formControlName="etat">
+      <mat-select formControlName="etat" [compareWith]="compareId">
         @for (etat of etats; track $index) {
         <mat-option [value]="etat">{{ etat.nom }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="item">
       <mat-label>Etiquettes</mat-label>
-      <mat-select formControlName="etiquettes" multiple>
+      <mat-select
+        formControlName="etiquettes"
+        multiple
+        [compareWith]="compareId"
+      >
         @for (etiquette of etiquettes; track etiquette) {
         <mat-option [value]="etiquette">{{ etiquette.nom }}</mat-option>
         }
@@ -65,11 +69,11 @@
     </mat-form-field>
 
     <button mat-raised-button type="submit" class="button-custom">
-      Ajouter produit
+      {{ produitEdite ? "Éditer le produit" : "Ajouter produit" }}
       <mat-icon
         aria-hidden="false"
         aria-label="Example home icon"
-        fontIcon="add"
+        [fontIcon]="produitEdite ? 'edit' : 'add'"
       ></mat-icon>
     </button>
   </form>

@@ -3,6 +3,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   FormBuilder,
   FormGroup,
@@ -11,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-produit',
@@ -28,8 +30,11 @@ import { HttpClient } from '@angular/common/http';
 export class EditProduitComponent implements OnInit {
   etats: Etat[] = [];
   etiquettes: Etiquette[] = [];
+  produitEdite: Produit | null = null;
+  notification = inject(MatSnackBar);
 
   http = inject(HttpClient);
+  activatedRoute = inject(ActivatedRoute);
 
   formBuilder: FormBuilder = inject(FormBuilder);
 
@@ -42,10 +47,22 @@ export class EditProduitComponent implements OnInit {
     description: ['Une petite description', []],
     prix: [57000, [Validators.required, Validators.min(10)]],
     etat: [{ id: 1 }],
-    etiquettes: [[]],
+    etiquettes: [[] as Etiquette[]],
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((parametres) => {
+      // Si on a une ID dans l'URL
+      if (parametres['id']) {
+        this.http
+          .get<Produit>('http://localhost:8080/produit/' + parametres['id'])
+          .subscribe((produit) => {
+            this.formulaire.patchValue(produit);
+            this.produitEdite = produit;
+          });
+      }
+    });
+
     this.http
       .get<Etat[]>('http://localhost:8080/etats')
       .subscribe((listeEtat) => {
@@ -53,21 +70,39 @@ export class EditProduitComponent implements OnInit {
       });
 
     this.http
-      .get<Etat[]>('http://localhost:8080/etiquettes')
+      .get<Etiquette[]>('http://localhost:8080/etiquettes')
       .subscribe((listeEtiquettes) => {
         this.etiquettes = listeEtiquettes;
       });
   }
 
-  onAddProduit() {
+  onAddProduit(): void {
     if (this.formulaire.valid) {
       console.log('Le formulaire est valide : ', this.formulaire.value);
 
-      this.http
-        .post('http://localhost:8080/produit', this.formulaire.value)
-        .subscribe((result) => console.log(result));
+      // On vérifie si on fait une édition et on fait un PUT
+      if (this.produitEdite) {
+        this.http
+          .put(
+            'http://localhost:8080/produit/' + this.produitEdite.id,
+            this.formulaire.value
+          )
+          .subscribe((result) => console.log(result));
+        this.notification.open('Le produit a bien été modifié', '', {
+          duration: 5000,
+        });
+      } else {
+        // sinon on fait un post
+        this.http
+          .post('http://localhost:8080/produit', this.formulaire.value)
+          .subscribe((result) => console.log(result));
+      }
     } else {
       console.log('FORMULAIRE NON VALIDE !');
     }
+  }
+
+  compareId(oject1: { id: number }, object2: { id: number }): boolean {
+    return oject1.id === object2.id;
   }
 }
