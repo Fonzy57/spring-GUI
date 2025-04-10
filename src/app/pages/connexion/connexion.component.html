@@ -1,1 +1,27 @@
 <h1>connexion works!</h1>
+<form [formGroup]="formulaire" (ngSubmit)="onConnection()">
+  <mat-form-field class="item">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="mon-nom@gmail.fr" formControlName="email" />
+    @if (formulaire.get('email')?.hasError("required")) {
+    <mat-error>Le nom est requis</mat-error>
+    } @else if (formulaire.get('nom')?.hasError("email")) {
+    <mat-error>Le format est invalide</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="item">
+    <mat-label>Mot de passe</mat-label>
+    <input
+      matInput
+      placeholder="*********"
+      type="password"
+      formControlName="password"
+    />
+    <mat-error>Le mot de passe est requis</mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button type="submit" class="button-custom">
+    Se connecter
+  </button>
+</form>
