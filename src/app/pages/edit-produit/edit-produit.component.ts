@@ -3,10 +3,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   FormBuilder,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -89,7 +87,7 @@ export class EditProduitComponent implements OnInit {
             this.formulaire.value
           )
           .subscribe((result) => {
-            console.log(result);
+            console.log('PUT RESULT : ', result);
             this.notification.show('Le produit a bien été modifié');
           });
       } else {
@@ -97,7 +95,6 @@ export class EditProduitComponent implements OnInit {
         this.http
           .post('http://localhost:8080/produit', this.formulaire.value)
           .subscribe((result) => {
-            console.log(result);
             this.notification.show('Le produit a bien été ajouté');
           });
       }
