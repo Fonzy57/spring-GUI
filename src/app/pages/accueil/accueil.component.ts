@@ -31,19 +31,11 @@ export class AccueilComponent {
   }
 
   ngOnInit() {
-    const jwt = localStorage.getItem('jwt');
-
-    if (jwt) {
-      this.http
-        .get<Produit[]>('http://localhost:8080/produits', {
-          headers: {
-            Authorization: 'Bearer ' + jwt,
-          },
-        })
-        .subscribe((listeProduits) => {
-          this.produits = listeProduits;
-        });
-    }
+    this.http
+      .get<Produit[]>('http://localhost:8080/produits')
+      .subscribe((listeProduits) => {
+        this.produits = listeProduits;
+      });
   }
 
   onClickBuy = (produit: Produit) => {
