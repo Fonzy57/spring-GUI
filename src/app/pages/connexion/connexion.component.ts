@@ -8,8 +8,9 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from '../../services/notification.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-connexion',
@@ -21,6 +22,8 @@ export class ConnexionComponent {
   http = inject(HttpClient);
   formBuilder: FormBuilder = inject(FormBuilder);
   notification: NotificationService = inject(NotificationService);
+  router: Router = inject(Router);
+  auth: AuthService = inject(AuthService);
 
   formulaire = this.formBuilder.group({
     email: ['user@toto.fr', [Validators.required, Validators.email]],
@@ -35,7 +38,10 @@ export class ConnexionComponent {
           responseType: 'text',
         })
         .subscribe({
-          next: (result) => localStorage.setItem('jwt', result), // ICI LE RESULT C'EST LE JWT
+          next: (result) => {
+            this.auth.connexion(result);
+            this.router.navigateByUrl('/accueil');
+          }, // ICI LE RESULT C'EST LE JWT
           error: (erreur) => {
             if (erreur.status === 401) {
               this.notification.show('Mauvais email ou mot de passe', 'error');

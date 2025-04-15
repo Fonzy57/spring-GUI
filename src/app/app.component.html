@@ -28,14 +28,27 @@
             Accueil
           </a>
         </li>
+        @if (!auth.connecte) {
         <li class="nav-item">
           <a
             class="nav-link"
             routerLink="/connexion"
             routerLinkActive="page-actuelle"
-            >Connexion</a
           >
+            Connexion
+          </a>
         </li>
+        } @else {
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/connexion"
+            (click)="auth.deconnexion()"
+          >
+            Déconnexion
+          </a>
+        </li>
+        }
       </ul>
       <!-- <form>
         <input
