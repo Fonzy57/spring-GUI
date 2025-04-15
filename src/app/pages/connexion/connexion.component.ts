@@ -39,7 +39,7 @@ export class ConnexionComponent {
         })
         .subscribe({
           next: (result) => {
-            this.auth.connexion(result);
+            this.auth.decodeJwt(result);
             this.router.navigateByUrl('/accueil');
           }, // ICI LE RESULT C'EST LE JWT
           error: (erreur) => {

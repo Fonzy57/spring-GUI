@@ -1,3 +1,4 @@
+@if (auth.role === "ROLE_ADMINISTRATEUR") {
 <button mat-raised-button routerLink="/ajouter-produit" class="add-button">
   Ajouter produit
   <mat-icon
@@ -6,6 +7,7 @@
     fontIcon="add"
   ></mat-icon>
 </button>
+}
 
 <h1>Voici mes {{ produits.length }} motos :</h1>
 
@@ -43,6 +45,7 @@
           Acheter maintenant !
         </button>
       </div>
+      @if (auth.role === "ROLE_ADMINISTRATEUR") {
       <div class="button-row">
         <a [routerLink]="['/edit-produit', produit.id]">
           <mat-icon
@@ -61,6 +64,7 @@
           ></mat-icon>
         </a>
       </div>
+      }
     </div>
   </div>
   } @empty {

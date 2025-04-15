@@ -5,6 +5,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NgStyle } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-accueil',
@@ -21,6 +22,7 @@ import { NgStyle } from '@angular/common';
 export class AccueilComponent {
   http = inject(HttpClient);
   produits: Produit[] = [];
+  auth: AuthService = inject(AuthService);
 
   private _snackBar = inject(MatSnackBar);
 
