@@ -10,8 +10,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
+import { ProduitService } from '../../services/crud/produit.service';
 
 @Component({
   selector: 'app-edit-produit',
@@ -34,6 +35,8 @@ export class EditProduitComponent implements OnInit {
 
   http = inject(HttpClient);
   activatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
+  produitService = inject(ProduitService);
 
   formBuilder: FormBuilder = inject(FormBuilder);
 
@@ -98,8 +101,12 @@ export class EditProduitComponent implements OnInit {
             this.notification.show('Le produit a bien été ajouté');
           });
       }
+
+      this.produitService.getAll();
+      // Redirect to home page after adding or editing product
+      this.router.navigateByUrl('/accueil');
     } else {
-      console.log('FORMULAIRE NON VALIDE !');
+      console.error('FORMULAIRE NON VALIDE !');
     }
   }
 
