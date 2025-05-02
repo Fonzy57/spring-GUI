@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NgStyle } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { ProduitService } from '../../services/crud/produit.service';
 
 @Component({
   selector: 'app-accueil',
@@ -20,9 +21,9 @@ import { AuthService } from '../../services/auth.service';
   ],
 })
 export class AccueilComponent {
-  http = inject(HttpClient);
-  produits: Produit[] = [];
   auth: AuthService = inject(AuthService);
+  produitService = inject(ProduitService);
+  produits: Produit[] = [];
 
   private _snackBar = inject(MatSnackBar);
 
@@ -32,15 +33,15 @@ export class AccueilComponent {
     });
   }
 
-  ngOnInit() {
-    this.http
-      .get<Produit[]>('http://localhost:8080/produits')
-      .subscribe((listeProduits) => {
-        this.produits = listeProduits;
-      });
-  }
-
   onClickBuy = (produit: Produit) => {
     this.openSnackBar(`Je viens d'acheter une ${produit.nom}`, 'x');
   };
+
+  ngOnInit() {
+    this.produitService.getAll();
+
+    this.produitService.produits$.subscribe(
+      (produits) => (this.produits = produits)
+    );
+  }
 }
