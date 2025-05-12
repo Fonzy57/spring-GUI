@@ -84,25 +84,22 @@ export class EditProduitComponent implements OnInit {
 
       // On vérifie si on fait une édition et on fait un PUT
       if (this.produitEdite) {
-        this.http
-          .put(
-            'http://localhost:8080/produit/' + this.produitEdite.id,
-            this.formulaire.value
-          )
-          .subscribe((result) => {
-            console.log('PUT RESULT : ', result);
-            this.notification.show('Le produit a bien été modifié');
+        this.produitService
+          .update(this.produitEdite.id, this.formulaire.value)
+          .subscribe({
+            next: () => this.notification.show('Le produit a bien été modifié'),
+            error: () =>
+              this.notification.show('Problème de communication', 'error'),
           });
       } else {
         // sinon on fait un post
-        this.http
-          .post('http://localhost:8080/produit', this.formulaire.value)
-          .subscribe((result) => {
-            this.notification.show('Le produit a bien été ajouté');
-          });
+        this.produitService.save(this.formulaire.value).subscribe({
+          next: () => this.notification.show('Le produit a bien été ajouté'),
+          error: () =>
+            this.notification.show('Problème de communication', 'error'),
+        });
       }
 
-      this.produitService.getAll();
       // Redirect to home page after adding or editing product
       this.router.navigateByUrl('/accueil');
     } else {
