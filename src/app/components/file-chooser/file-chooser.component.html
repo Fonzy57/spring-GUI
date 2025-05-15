@@ -1,0 +1,14 @@
+<input type="file" #fileChooser (change)="onFichierSelectionne($event)" />
+
+<div class="file-chooser-container">
+  <div class="file-chooser-button" (click)="fileChooser.click()">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      fontIcon="attach_file"
+    />
+    Choisir un fichier
+  </div>
+
+  <p class="nom-fichier">{{ fichier?.name ?? "Aucun fichier sélectionné" }}</p>
+</div>

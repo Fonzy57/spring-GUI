@@ -1,0 +1,35 @@
+input {
+  display: none;
+}
+
+.file-chooser-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.file-chooser-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: salmon;
+  border: 2px solid salmon;
+  border-radius: 8px;
+  width: max-content;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgb(255, 86, 67);
+  }
+
+  &:active {
+    background-color: salmon;
+    border: 2px solid rgb(255, 86, 67);
+  }
+}
