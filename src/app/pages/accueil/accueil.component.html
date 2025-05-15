@@ -14,12 +14,15 @@
 <div class="produit-container">
   @for (produit of produits; track $index) {
   <div class="produit-card" [class.promotion]="produit.etat.nom === 'Occasion'">
-    <div class="img-container">
-      <img
-        src="https://picsum.photos/id/{{ produit.id + 425 }}/600/400"
-        alt="image aléatoire"
-        srcset=""
-      />
+    <div class="test-container">
+      <div class="img-container">
+        <!-- src="https://picsum.photos/id/{{ produit.id + 425 }}/600/400" -->
+        <img
+          src="http://localhost:81/images/{{ produit.nomImage }}"
+          alt="image aléatoire"
+          srcset=""
+        />
+      </div>
     </div>
     <div class="content-container">
       <div class="first-row">

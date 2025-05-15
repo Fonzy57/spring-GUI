@@ -34,10 +34,19 @@ h1 {
     }
   }
 
+  .test-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .img-container {
     width: 438px;
+    height: 300px;
     border-radius: 4px;
     img {
+      width: 100%;
+      height: 100%;
       transition: all ease-in-out 0.3s;
       border-radius: 4px;
       filter: grayscale(1);
