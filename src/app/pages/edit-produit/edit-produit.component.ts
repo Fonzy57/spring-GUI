@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import { ProduitService } from '../../services/crud/produit.service';
+import { FileChooserComponent } from '../../components/file-chooser/file-chooser.component';
 
 @Component({
   selector: 'app-edit-produit',
@@ -23,6 +24,7 @@ import { ProduitService } from '../../services/crud/produit.service';
     ReactiveFormsModule,
     FormsModule,
     MatSelectModule,
+    FileChooserComponent,
   ],
   templateUrl: './edit-produit.component.html',
   styleUrl: './edit-produit.component.scss',
@@ -31,8 +33,9 @@ export class EditProduitComponent implements OnInit {
   etats: Etat[] = [];
   etiquettes: Etiquette[] = [];
   produitEdite: Produit | null = null;
-  notification: NotificationService = inject(NotificationService);
+  photo: File | null = null;
 
+  notification: NotificationService = inject(NotificationService);
   http = inject(HttpClient);
   activatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
@@ -51,6 +54,10 @@ export class EditProduitComponent implements OnInit {
     etat: [{ id: 1 }],
     etiquettes: [[] as Etiquette[]],
   });
+
+  fichierEnvoyeParComposant(fichier: File | null) {
+    this.photo = fichier;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((parametres) => {
@@ -93,11 +100,34 @@ export class EditProduitComponent implements OnInit {
           });
       } else {
         // sinon on fait un post
-        this.produitService.save(this.formulaire.value).subscribe({
+
+        const formData = new FormData();
+
+        formData.set(
+          'produit',
+          new Blob([JSON.stringify(this.formulaire.value)], {
+            type: 'application/json',
+          })
+        );
+
+        if (this.photo) {
+          formData.set('photo', this.photo);
+        }
+
+        this.http.post('http://localhost:8080/produit', formData).subscribe({
+          next: (produit) => {
+            console.log('Produit ajouté');
+          },
+          error: (error) => {
+            console.error("Une erreur est survenue lors de l'ajout du produit");
+          },
+        });
+
+        /* this.produitService.save(this.formulaire.value).subscribe({
           next: () => this.notification.show('Le produit a bien été ajouté'),
           error: () =>
             this.notification.show('Problème de communication', 'error'),
-        });
+        }); */
       }
 
       // Redirect to home page after adding or editing product
