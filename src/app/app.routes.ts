@@ -5,8 +5,13 @@ import { Page404Component } from './pages/page404/page404.component';
 import { EditProduitComponent } from './pages/edit-produit/edit-produit.component';
 import { loggedGuard } from './services/logged.guard';
 import { adminGuard } from './services/admin.guard';
+import { ValidateEmailComponent } from './pages/validate-email/validate-email.component';
 
 export const routes: Routes = [
+  {
+    path: 'validate-email/:token',
+    component: ValidateEmailComponent,
+  },
   { path: 'accueil', component: AccueilComponent, canActivate: [loggedGuard] },
   {
     path: 'connexion',
