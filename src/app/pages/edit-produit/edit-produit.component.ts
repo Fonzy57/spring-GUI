@@ -91,6 +91,9 @@ export class EditProduitComponent implements OnInit {
 
       // On vérifie si on fait une édition et on fait un PUT
       if (this.produitEdite) {
+        /* TODO REFAIRE COMME POUR LE ADD EN AJOUTANT L'IMAGE */
+        /* LE ADD EST JUSTE EN DESSOUS */
+
         this.produitService
           .update(this.produitEdite.id, this.formulaire.value)
           .subscribe({
