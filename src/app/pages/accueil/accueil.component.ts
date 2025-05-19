@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { NgStyle } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ProduitService } from '../../services/crud/produit.service';
+import { ImgSecuredDirective } from '../../directives/img-secured/img-secured.directive';
 
 @Component({
   selector: 'app-accueil',
@@ -18,6 +19,7 @@ import { ProduitService } from '../../services/crud/produit.service';
     MatIconModule,
     RouterLink,
     NgStyle,
+    ImgSecuredDirective,
   ],
 })
 export class AccueilComponent {
