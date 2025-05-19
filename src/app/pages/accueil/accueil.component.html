@@ -19,7 +19,7 @@
         <!-- src="https://picsum.photos/id/{{ produit.id + 425 }}/600/400" -->
         <img
           ImgSecured
-          src="http://localhost:8080/produit/image/{{ produit.id }}"
+          src="{{ environnement.serverUrl }}/produit/image/{{ produit.id }}"
           alt="image aléatoire"
           srcset=""
         />

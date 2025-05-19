@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-validate-email',
@@ -30,7 +31,7 @@ export class ValidateEmailComponent {
   onValidationInscription() {
     if (this.token) {
       this.http
-        .post<any>('http://localhost:8080/validate-email', {
+        .post<any>(`${environment.serverUrl}/validate-email`, {
           token: this.token,
           consentementUtilisationDonnees: true,
         })

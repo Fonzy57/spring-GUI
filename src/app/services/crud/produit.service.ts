@@ -10,6 +10,7 @@ import {
   throwError,
 } from 'rxjs';
 import { NotificationService } from '../notification.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +25,13 @@ export class ProduitService {
 
   getAll() {
     this.http
-      .get<Produit[]>('http://localhost:8080/produits')
+      .get<Produit[]>(environment.serverUrl + '/produits')
       .subscribe((produits) => this.produits$.next(produits));
   }
 
   // TODO VOIR POUR CHECKER LE .pipe, le .tap etc
   save(produit: any) {
-    return this.http.post('http://localhost:8080/produit', produit).pipe(
+    return this.http.post(environment.serverUrl + '/produit', produit).pipe(
       tap(() => this.getAll()),
       catchError((error) => {
         // Handle the error if needed
@@ -40,12 +41,14 @@ export class ProduitService {
   }
 
   update(id: number, produit: any) {
-    return this.http.put('http://localhost:8080/produit/' + id, produit).pipe(
-      tap(() => this.getAll()),
-      catchError((error) => {
-        // Handle the error if needed
-        return throwError(() => error);
-      })
-    );
+    return this.http
+      .put(environment.serverUrl + '/produit/' + id, produit)
+      .pipe(
+        tap(() => this.getAll()),
+        catchError((error) => {
+          // Handle the error if needed
+          return throwError(() => error);
+        })
+      );
   }
 }

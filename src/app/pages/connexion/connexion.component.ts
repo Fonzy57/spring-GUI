@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-connexion',
@@ -34,7 +35,7 @@ export class ConnexionComponent {
     if (this.formulaire.valid) {
       // Ici faire un try catch pour être sûr que l'API est joignable
       this.http
-        .post('http://localhost:8080/connexion', this.formulaire.value, {
+        .post(`${environment.serverUrl}/connexion`, this.formulaire.value, {
           responseType: 'text',
         })
         .subscribe({

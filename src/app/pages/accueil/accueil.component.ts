@@ -8,6 +8,7 @@ import { NgStyle } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ProduitService } from '../../services/crud/produit.service';
 import { ImgSecuredDirective } from '../../directives/img-secured/img-secured.directive';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-accueil',
@@ -26,6 +27,7 @@ export class AccueilComponent {
   auth: AuthService = inject(AuthService);
   produitService = inject(ProduitService);
   produits: Produit[] = [];
+  environnement = environment;
 
   private _snackBar = inject(MatSnackBar);
 

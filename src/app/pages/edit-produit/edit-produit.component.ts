@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import { ProduitService } from '../../services/crud/produit.service';
 import { FileChooserComponent } from '../../components/file-chooser/file-chooser.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-edit-produit',
@@ -64,7 +65,7 @@ export class EditProduitComponent implements OnInit {
       // Si on a une ID dans l'URL
       if (parametres['id']) {
         this.http
-          .get<Produit>('http://localhost:8080/produit/' + parametres['id'])
+          .get<Produit>(environment.serverUrl + '/produit/' + parametres['id'])
           .subscribe((produit) => {
             this.formulaire.patchValue(produit);
             this.produitEdite = produit;
@@ -73,13 +74,13 @@ export class EditProduitComponent implements OnInit {
     });
 
     this.http
-      .get<Etat[]>('http://localhost:8080/etats')
+      .get<Etat[]>(environment.serverUrl + '/etats')
       .subscribe((listeEtat) => {
         this.etats = listeEtat;
       });
 
     this.http
-      .get<Etiquette[]>('http://localhost:8080/etiquettes')
+      .get<Etiquette[]>(environment.serverUrl + '/etiquettes')
       .subscribe((listeEtiquettes) => {
         this.etiquettes = listeEtiquettes;
       });
@@ -117,7 +118,7 @@ export class EditProduitComponent implements OnInit {
           formData.set('photo', this.photo);
         }
 
-        this.http.post('http://localhost:8080/produit', formData).subscribe({
+        this.http.post(`${environment.serverUrl}/produit`, formData).subscribe({
           next: (produit) => {
             console.log('Produit ajouté');
           },
